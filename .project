@@ -36,5 +36,15 @@
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/teensy/hardware/avr/1.58.1/cores/teensy4</locationURI>
 		</link>
+		<link>
+			<name>libraries/Adafruit_NeoPixel</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/teensy/hardware/avr/1.58.1/libraries/Adafruit_NeoPixel</locationURI>
+		</link>
+		<link>
+			<name>libraries/WS2812FX</name>
+			<type>2</type>
+			<location>C:/Users/natha/Documents/Arduino/libraries/WS2812FX</location>
+		</link>
 	</linkedResources>
 </projectDescription>

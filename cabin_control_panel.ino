@@ -1,4 +1,5 @@
 #include "Arduino.h"
+#include "Variables.h"
 //The setup function is called once at startup of the sketch
 void setup()
 {

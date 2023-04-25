@@ -18,20 +18,26 @@
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="io.sloeber.targetplatform.731022436" name="Arduino Target" osList="all" superClass="io.sloeber.targetplatform"/>
 							<builder buildPath="${workspace_loc:/cabin_control_panel}/Release" id="io.sloeber.sketch.builder.861471921" keepEnvironmentInBuildfile="false" name="Arduino sketch builder" parallelBuildOn="false" superClass="io.sloeber.sketch.builder"/>
 							<tool id="io.sloeber.tool.sketch.compiler.cpp.496005984" name="Arduino C++ Compiler" superClass="io.sloeber.tool.sketch.compiler.cpp">
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.cpp.sketch.option.incpath.765711193" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.cpp.sketch.option.incpath.765711193" name="Include Paths (-I)" superClass="io.sloeber.compiler.cpp.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/libraries/WS2812FX/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/libraries/Adafruit_NeoPixel}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.715866482" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.compiler.c.1955287206" name="Arduino C Compiler" superClass="io.sloeber.tool.compiler.c">
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.c.sketch.option.incpath.1711005396" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.c.sketch.option.incpath.1711005396" name="Include Paths (-I)" superClass="io.sloeber.compiler.c.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/libraries/WS2812FX/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/libraries/Adafruit_NeoPixel}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.930716816" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="io.sloeber.tool.sketch.compiler.s.168283878" name="Arduino Assembler" superClass="io.sloeber.tool.sketch.compiler.s">
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.asm.sketch.option.incpath.402380624" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="io.sloeber.compiler.asm.sketch.option.incpath.402380624" name="Include Paths (-I)" superClass="io.sloeber.compiler.asm.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/core/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/libraries/WS2812FX/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cabin_control_panel/libraries/Adafruit_NeoPixel}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.1977792939" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
@@ -86,4 +92,6 @@
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
