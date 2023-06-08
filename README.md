@@ -25,7 +25,8 @@ Tous les autres fichier en **.ino** sont au même niveau.
 | [Serial_Manager.ino](https://github.com/Hanami-Interactivity/cabin-control-panel/blob/main/Serial_Manager.ino "Serial_Manager.ino") | Toutes les fonctions relatives à la communication Serial avec le PC |
 | [IO_Manager.ino](https://github.com/Hanami-Interactivity/cabin-control-panel/blob/main/IO_Manager.ino "IO_Manager.ino") | Toute la gestion d'init, lecture et écriture des entrées sortie de la carte |
 | [Variables.h](https://github.com/Hanami-Interactivity/cabin-control-panel/blob/main/Variables.h "Variables.h") | Toutes les variables, constantes, class utilisés par le projet |
-Les autres fichiers sont là pour facilement setup le projet sur un environnement [Sloeber 4.4.1].(https://eclipse.baeyens.it/)
+
+Les autres fichiers sont là pour facilement setup le projet sur un environnement [Sloeber 4.4.1](https://eclipse.baeyens.it/)
 ### Librairies 
 | Nom | Utilisation | Lien|
 |--|--|--|
