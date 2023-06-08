@@ -37,6 +37,7 @@ void Interrupt_A_REI_RotaryEncoder() {
 		if(IO.REI_RotaryEncoder.i_Counter < INT16_MAX){
 			IO.REI_RotaryEncoder.i_Counter++;
 		} else {
+			IO.REI_RotaryEncoder.b_FlagLoop = true;
 			IO.REI_RotaryEncoder.i_Counter = INT16_MIN + 1;
 			IO.REI_RotaryEncoder.i_Counter_Z1 = INT16_MIN;
 		}
@@ -45,6 +46,7 @@ void Interrupt_A_REI_RotaryEncoder() {
 		if(IO.REI_RotaryEncoder.i_Counter > INT16_MIN){
 			IO.REI_RotaryEncoder.i_Counter--;
 		} else {
+			IO.REI_RotaryEncoder.b_FlagLoop = true;
 			IO.REI_RotaryEncoder.i_Counter = INT16_MAX - 1;
 			IO.REI_RotaryEncoder.i_Counter_Z1 = INT16_MAX;
 		}
@@ -59,6 +61,7 @@ void Interrupt_B_REI_RotaryEncoder() {
 		if(IO.REI_RotaryEncoder.i_Counter > INT16_MIN){
 			IO.REI_RotaryEncoder.i_Counter--;
 		} else {
+			IO.REI_RotaryEncoder.b_FlagLoop = true;
 			IO.REI_RotaryEncoder.i_Counter = INT16_MAX - 1;
 			IO.REI_RotaryEncoder.i_Counter_Z1 = INT16_MAX;
 		}
@@ -66,6 +69,7 @@ void Interrupt_B_REI_RotaryEncoder() {
 		if(IO.REI_RotaryEncoder.i_Counter < INT16_MAX){
 			IO.REI_RotaryEncoder.i_Counter++;
 		} else {
+			IO.REI_RotaryEncoder.b_FlagLoop = true;
 			IO.REI_RotaryEncoder.i_Counter = INT16_MIN + 1;
 			IO.REI_RotaryEncoder.i_Counter_Z1 = INT16_MIN;
 		}
@@ -93,6 +97,21 @@ void REI_ConditionedReading(struct_RotatyEncoderInput* REI)
 void REI_Init(struct_RotatyEncoderInput* REI){
 	attachInterrupt(REI->DI_B.ui_Pin, (void (*)())REI->Interrupt_A, RISING);					//Inversion de l'attache pour utilisé seulement 2 pins et pas une autre pour l'interupt
 	attachInterrupt(REI->DI_A.ui_Pin, (void (*)())REI->Interrupt_B, RISING);
+}
+
+void REI_Update(struct_RotatyEncoderInput* REI){
+	//todo check les calculs
+	int32_t i_Temp = REI->i_Counter;
+	if(REI->b_FlagLoop == true){
+		REI->b_FlagLoop = false;
+		if(i_Temp < 0){
+			i_Temp += INT16_MAX;
+		} else {
+			i_Temp -= INT16_MAX;
+		}
+	}
+	REI->i_Speed_Z1 = REI->i_Speed;
+	REI->i_Speed = i_Temp - REI->i_Speed;
 }
 
 void DSI_Init(struct_DigitalSelectorInput* DSI, uint8_t ui_NbPosition, const uint8_t* ui_Pins, uint8_t ui_Type = INPUT){

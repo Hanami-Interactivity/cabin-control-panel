@@ -2,7 +2,7 @@
 //This is a automatic generated file
 //Please do not modify this file
 //If you touch this file your change will be overwritten during the next build
-//This file has been generated on 2023-06-08 23:09:41
+//This file has been generated on 2023-06-09 00:16:08
 
 #include "Arduino.h"
 #include <WS2812b_Effect.h>
@@ -16,6 +16,7 @@ void Interrupt_A_REI_RotaryEncoder() ;
 void Interrupt_B_REI_RotaryEncoder() ;
 void REI_ConditionedReading(struct_RotatyEncoderInput* REI) ;
 void REI_Init(struct_RotatyEncoderInput* REI);
+void REI_Update(struct_RotatyEncoderInput* REI);
 void Init_IO();
 void Read_INPUTS() ;
 void Init_SFX();

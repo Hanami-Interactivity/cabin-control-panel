@@ -47,8 +47,9 @@ void loop()
 
 		//
 		UpdateSFX();
-
-
+		if((Variables.ui_IndexTask % ROTARY_ENCODER_PERIODE_UPDATE_SPEED) == 0){
+			REI_Update(&IO.REI_RotaryEncoder);
+		}
 
 		//--------------------OUTPUT
 

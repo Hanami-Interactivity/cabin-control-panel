@@ -9,12 +9,11 @@ unsigned int CharHexaToInt(String s_Data, uint8_t ui_Size = 0, uint8_t ui_StartI
 //W : caractère de fin
 
 void COM_PackagingAndWritingStatus() {
-
   String s_Buffer = String(COM_HEADING_ECU_STATUS) + ":";
   s_Buffer += String(IO.AI_Slider1.ui_Val) + ",";
   s_Buffer += String(IO.AI_Slider2.ui_Val) + ",";
   s_Buffer += String(IO.DSI_Selector.ui_Position) + ",";
-  s_Buffer += String(IO.REI_RotaryEncoder.i_Counter) + ",";
+  s_Buffer += String(IO.REI_RotaryEncoder.i_Speed) + ",";
   s_Buffer += String(IO.DI_ArcadeButton.b_State) + ",";
   s_Buffer += String(IO.DI_SLider1Button.b_State) + String(COM_END_CHAR);
   Serial.println(s_Buffer);     //todo pour test

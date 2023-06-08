@@ -38,6 +38,8 @@
 //#define REI_RotaryEncoder_A bitRead(PIND,pin_ROTARY_ENCODER_A)
 //#define REI_RotaryEncoder_B bitRead(PIND,pin_ROTARY_ENCODER_B)
 
+#define ROTARY_ENCODER_PERIODE_UPDATE_SPEED (NB_PERIODE_01S)
+
 #define NB_WS2812_STRIP_CABIN_TOP		    200
 #define NB_WS2812_CABIN_TOP_TOTAL			(NB_WS2812_STRIP_CABIN_TOP)
 
@@ -164,8 +166,6 @@ typedef struct{
 	uint8_t ui_IndexTask;
   String s_BufferIntput;
   boolean b_NewMsgSerial;
-
-  int16_t i_speed;
 }struct_Variables;
 
 typedef struct{
