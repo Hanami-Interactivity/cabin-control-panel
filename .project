@@ -46,5 +46,10 @@
 			<type>2</type>
 			<location>C:/Users/natha/Documents/Arduino/libraries/WS2812FX</location>
 		</link>
+		<link>
+			<name>libraries/WS2812b_Effect</name>
+			<type>2</type>
+			<location>D:/DMII - Gobelins/M2/Projet final/Librairies/WS2812b_Effect</location>
+		</link>
 	</linkedResources>
 </projectDescription>
