@@ -2,7 +2,7 @@
 //This is a automatic generated file
 //Please do not modify this file
 //If you touch this file your change will be overwritten during the next build
-//This file has been generated on 2023-06-09 00:16:08
+//This file has been generated on 2023-06-10 20:21:26
 
 #include "Arduino.h"
 #include <WS2812b_Effect.h>
@@ -23,6 +23,7 @@ void Init_SFX();
 void Init_StipLED(struct_StripLED* StripLED, uint8_t ui_Pin, uint16_t ui_NbLed, const uint16_t* ui_SegmentsSize, uint8_t ui_NbSegment);
 void NewRequestSFX(uint8_t ui_Code, uint8_t ui_SousCode, uint8_t ui_Effect, String s_Data);
 void UpdateSFX();
+int oppositeInRange(int number, int lowerBound, int upperBound) ;
 void COM_PackagingAndWritingStatus() ;
 void ProcessingNewMsgSerial();
 void serialEvent() ;

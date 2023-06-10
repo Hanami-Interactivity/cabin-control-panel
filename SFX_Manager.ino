@@ -48,7 +48,6 @@ void NewRequestSFX(uint8_t ui_Code, uint8_t ui_SousCode, uint8_t ui_Effect, Stri
 	Serial.println(EffectTemp.ColorSecond.S);
 	Serial.println(EffectTemp.ColorSecond.L);
 
-
 	//EffectTemp.ui_Luminosity = CharHexaToInt(s_Data, 2, 16);
 
 	switch (ui_Code) {
@@ -78,6 +77,17 @@ void NewRequestSFX(uint8_t ui_Code, uint8_t ui_SousCode, uint8_t ui_Effect, Stri
 
 }
 
+double calculatePercentageIntensity(double value, double min, double max, double intensityMax = 50) {
+    if (value < min || value > max) {
+        return 0.0;
+    }
+
+    double range = max - min;
+    double normalizedValue = value - min;
+
+    return (normalizedValue / range) * intensityMax;
+}
+
 void UpdateSFX(){
 	uint32_t ui_ColorTemp;
 	uint8_t i, j, ui_IndexTemp, ui_LumTemp = 0, ui_DeltaTemp, ui_PixelTemp = 0;
@@ -103,46 +113,67 @@ void UpdateSFX(){
 		}
 		for(j = 0; j < ui_SizeStripControlPanel[i]; j++){
 			boolean b_Test = false;
+			uint8_t ui_Temp, ui_IntensityTemp;
+			uint32_t ui_ColorTemp = BLACK;
 			switch (i) {					//for specifics conditions (indicator selector for example)
 				case OffsetControlPanel_Slider1:
+					ui_Temp = oppositeInRange((IO.AI_Slider1.ui_Val / (IO.AI_Slider1.ui_Max/NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_1)), 0, NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_1) - 1;
+					ui_IntensityTemp = calculatePercentageIntensity(IO.AI_Slider1.ui_Val % (IO.AI_Slider1.ui_Max/NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_1), 0, IO.AI_Slider1.ui_Max/NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_1, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.L);
+					if(j < NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_1 / 2){
+						if(j < ui_Temp){
+							ui_ColorTemp = BLACK;
+						}
+						else if(j == ui_Temp){
+							ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->makeColor(Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.H, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.S, ui_IntensityTemp);
+						}
+						else{
+							ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual;
+						}
+					}
+					else {
+						ui_IntensityTemp = oppositeInRange(ui_IntensityTemp, 0, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.L);
+						if(j < ui_Temp){
+							ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual;
+						}
+						else if(j == ui_Temp){
+							ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->makeColor(Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.H, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.S, ui_IntensityTemp);
+						}
+						else{
+							ui_ColorTemp = BLACK;
+						}
+					}
+
+					if(((ui_Temp == NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_1 / 2) || (ui_Temp == (NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_1 / 2) - 1)) && j == ui_Temp && ui_IntensityTemp <= 5){
+						ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->makeColor(0, 0, 5);
+					}
+
+					break;
 				case OffsetControlPanel_Slider2:
-					/*ui_DeltaTemp = (1024/ui_SizeStripControlPanel[i]) / 50;
-					ui_LumTemp += ui_DeltaTemp;
-					ui_PixelTemp
-					if(j < ui_PixelTemp){
-						Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual);
+					ui_IntensityTemp = oppositeInRange(calculatePercentageIntensity(IO.AI_Slider2.ui_Val % (IO.AI_Slider2.ui_Max/NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_2), 0, IO.AI_Slider2.ui_Max/NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_2, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.L), 0, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.L);
+					ui_Temp = oppositeInRange((IO.AI_Slider2.ui_Val / (IO.AI_Slider2.ui_Max/NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_2)), 0, NB_WS2812_STRIP_CONTROL_PANEL_SLIDER_2) - 1;
+					if(j < ui_Temp){
+						ui_ColorTemp =  Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual;
 					}
-					else if(j == ui_PixelTemp){
-						ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->makeColor(Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.H, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.S, ui_LumTemp);
-					}
-					else {
-						Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, BLACK);
-					}
-
-					if(ui_LumTemp + ui_DeltaTemp >= Variables.LED_ControlPanel.Effect[i]->VAR.ColorPrincipal.L){
-						ui_PixelTemp++;
-						ui_LumTemp = 0;
-					}*/
-					if(j >= (IO.AI_Slider1.ui_Val / (1024/6))){
-						Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, BLACK);
+					else if(j == ui_Temp) {
+						ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->makeColor(Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.H, Variables.LED_ControlPanel.Effect[i]->VAR.ColorActual.S, ui_IntensityTemp);
 					}
 					else {
-						Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, WHITE);
+						ui_ColorTemp = BLACK;
 					}
-
 				break;
+
 				case OffsetControlPanel_IndocatorSelector:
 					if(j == IO.DSI_Selector.ui_Position){
-						Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual);
+						ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual;
 					} else {
-						Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, BLACK);
+						ui_ColorTemp = BLACK;
 					}
 					break;
 				default:
-					Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual);
+					ui_ColorTemp = Variables.LED_ControlPanel.Effect[i]->VAR.ui_ColorActual;
 					break;
 			}
-
+			Variables.LED_ControlPanel.Strip->setPixelColor(ui_IndexTemp + j, ui_ColorTemp);
 		}
 	}
 	ui_IndexTemp = 0;
@@ -173,3 +204,10 @@ void UpdateSFX(){
 	}
 }
 
+int oppositeInRange(int number, int lowerBound, int upperBound) {
+    if (number >= lowerBound && number <= upperBound) {
+        int range = upperBound - lowerBound;
+        return upperBound - number + lowerBound;
+    }
+    return number;
+}

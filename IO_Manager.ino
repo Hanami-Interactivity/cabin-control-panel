@@ -14,6 +14,12 @@ void AI_ConditionedReading(struct_AnalogInput* AI)
 {
   AI->ui_Val_Z1 = AI->ui_Val;
   AI->ui_Val = analogRead(AI->ui_Pin);
+  if (AI->ui_Val < AI->ui_Min || AI->ui_Val > AI->ui_Max) {
+	  AI->ui_Val = 0;
+  }
+  double range = AI->ui_Max - AI->ui_Min;
+  double normalizedValue = AI->ui_Val - AI->ui_Min;
+  AI->ui_Val = (normalizedValue / range) * 1000;
 }
 
 void DSI_ConditionedReading(struct_DigitalSelectorInput* DSI)

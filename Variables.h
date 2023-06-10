@@ -15,8 +15,8 @@
 #define pin_LED_ACTIVITY				    13
 #define pin_ARCADE_BUTTON				    10
 #define pin_SLIDER_1_BUTTON					12
-#define pin_SLIDER_1					    25
-#define pin_SLIDER_2					    27
+#define pin_SLIDER_1					    27
+#define pin_SLIDER_2					    25
 #define pin_ROTARY_ENCODER_A		    	23
 #define pin_ROTARY_ENCODER_B			    22
 #define pin_LED_WS2812_CABIN_TOP	    	4
@@ -108,6 +108,8 @@ typedef struct{
 	uint8_t ui_Pin;
 	uint16_t ui_Val;
 	uint16_t ui_Val_Z1;
+	uint16_t ui_Min = 0;
+	uint16_t ui_Max = 1024;
 }struct_AnalogInput;
 
 typedef struct{
