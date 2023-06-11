@@ -117,7 +117,8 @@ void REI_Update(struct_RotatyEncoderInput* REI){
 		}
 	}
 	REI->i_Speed_Z1 = REI->i_Speed;
-	REI->i_Speed = i_Temp - REI->i_Speed;
+	REI->i_Speed = REI->i_Counter_LC - REI->i_Counter; //i_Temp - REI->i_Speed;
+	REI->i_Counter_LC = REI->i_Counter;
 }
 
 void DSI_Init(struct_DigitalSelectorInput* DSI, uint8_t ui_NbPosition, const uint8_t* ui_Pins, uint8_t ui_Type = INPUT){
@@ -163,7 +164,7 @@ void Read_INPUTS()
 	DI_ConditionedReading(&IO.DI_SLider1Button);
 	AI_ConditionedReading(&IO.AI_Slider1);
 	AI_ConditionedReading(&IO.AI_Slider2);
-	REI_ConditionedReading(&IO.REI_RotaryEncoder);
+	//REI_ConditionedReading(&IO.REI_RotaryEncoder);
 	DSI_ConditionedReading(&IO.DSI_Selector);
 }
 

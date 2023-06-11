@@ -16,7 +16,9 @@ void COM_PackagingAndWritingStatus() {
   s_Buffer += String(IO.REI_RotaryEncoder.i_Speed) + ",";
   s_Buffer += String(IO.DI_ArcadeButton.b_State) + ",";
   s_Buffer += String(IO.DI_SLider1Button.b_State) + String(COM_END_CHAR);
-  Serial.println(s_Buffer);     //todo pour test
+	#ifdef SEND_ECU_STATUS
+  Serial.println(s_Buffer);
+	#endif
 }
 
 //SFX:A,E,B…BW

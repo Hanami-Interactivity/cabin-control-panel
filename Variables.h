@@ -11,6 +11,7 @@
 #include <WS2812FX.h>
 #include <WS2812b_Effect.h>
 
+//#define SEND_ECU_STATUS						//To enable send ECU info
 
 #define pin_LED_ACTIVITY				    13
 #define pin_ARCADE_BUTTON				    10
@@ -117,6 +118,7 @@ typedef struct{
   struct_DigitalInput DI_B;
   int16_t i_Counter;
   int16_t i_Counter_Z1;
+  int16_t i_Counter_LC;						//Last Check
   int16_t i_Speed;
   int16_t i_Speed_Z1;
   boolean b_FlagLoop;			//To know if INT16_MAX or MIN for counter

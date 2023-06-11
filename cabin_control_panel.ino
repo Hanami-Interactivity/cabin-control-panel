@@ -56,7 +56,7 @@ void loop()
 
 		if((Variables.ui_IndexTask % COM_PERIODE_SEND_ECU_STATUS) == 0){
 			COM_PackagingAndWritingStatus();
-			//Serial.println(IO.REI_RotaryEncoder.i_Counter);
+			Serial.println(IO.REI_RotaryEncoder.i_Speed);
 		}
 
 //		Variables.LED_CabinTop.Strip->service();
